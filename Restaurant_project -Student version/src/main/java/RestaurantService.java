@@ -4,11 +4,20 @@ import java.util.List;
 
 public class RestaurantService {
     private static List<Restaurant> restaurants = new ArrayList<>();
+public RestaurantService(){
 
-    public Restaurant findRestaurantByName(String restaurantName){
-        return null;
-        //DELETE ABOVE STATEMENT AND WRITE CODE HERE
     }
+    public RestaurantService(List<Restaurant> restaurants) {
+        this.restaurants = restaurants;
+    }
+    public Restaurant findRestaurantByName(String restaurantName) throws restaurantNotFoundException{
+        for (Restaurant restaurant : restaurants) {
+            if (restaurant.getName().equalsIgnoreCase(restaurantName)) {
+                return restaurant;
+            }
+        }
+        throw new restaurantNotFoundException(restaurantName);
+   }
 
 
     public Restaurant addRestaurant(String name, String location, LocalTime openingTime, LocalTime closingTime) {
