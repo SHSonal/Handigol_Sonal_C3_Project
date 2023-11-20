@@ -68,4 +68,33 @@ class RestaurantTest {
                 ()->restaurant.removeFromMenu("French fries"));
     }
     //<<<<<<<<<<<<<<<<<<<<<<<MENU>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    
+     ///<<<<<<<<<<<<<<<<<<<<Total Order>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    @Test
+   public void calculate_order_value_should_return_total_price_of_items_in_order() {
+        List<Item> order = List.of(new Item("Sweet corn soup", 119), new Item("Vegetable lasagne", 269));
+        int expectedTotal = 119 + 269;
+
+    assertEquals(expectedTotal, restaurant.calculateOrderValue(order));
+    }
+        
+    @Test
+    public void calculate_order_value_should_return_zero_for_empty_order() {
+            List<Item> emptyOrder = new ArrayList<>();
+            assertEquals(0, restaurant.calculateOrderValue(emptyOrder));
+    }
+
+    @Test
+    public void calculate_order_value_should_handle_quantity() {
+
+            List<Item> orderWithQuantity = new ArrayList<>();
+            orderWithQuantity.add(new Item("Sweet corn soup", 119)); 
+            orderWithQuantity.add(new Item("Vegetable lasagne", 269)); 
+            orderWithQuantity.add(new Item("Sweet corn soup", 119)); 
+            orderWithQuantity.add(new Item("Vegetable lasagne", 269));
+            int expectedTotal = (119 * 2) + (269 * 2);
+        
+            assertEquals(expectedTotal, restaurant.calculateOrderValue(orderWithQuantity), "Incorrect total order value with quantity");
+        }
 }
